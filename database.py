@@ -19,12 +19,6 @@ def create_db():
     connection.commit()
 
 
-# not in use
-def access_db():
-        connection = sqlite3.connect('game_collection.db')
-        cursor = connection.cursor()    
-
-
 def db_read_one(choice: str):
         connection = sqlite3.connect('game_collection.db')
         connection.row_factory = sqlite3.Row
