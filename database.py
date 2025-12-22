@@ -1,5 +1,6 @@
 import sqlite3
 
+
 def create_db():
     connection = sqlite3.connect('game_collection.db')
     cursor = connection.cursor()
@@ -18,6 +19,7 @@ def create_db():
     connection.commit()
 
 
+# not in use
 def access_db():
         connection = sqlite3.connect('game_collection.db')
         cursor = connection.cursor()    

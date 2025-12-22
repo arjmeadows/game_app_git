@@ -30,7 +30,7 @@ def manual_game_create(choice):
     decide = input(f"\nDo you want to add {title} to your collection? (yes/no): ")
 
     if decide == "yes":
-        if dupe_check(title) is None:
+        if database.db_read_one(title) is None:
             add_game(new_game)
             print()
             print(f"{title} has been added to your collection!")
@@ -136,9 +136,5 @@ def show_single_game(game_info):
     
     console = Console()
     console.print(table)
-    
-
-def dupe_check(choice):
-    return database.db_read_one(choice)
     
         
