@@ -6,6 +6,7 @@ from rich.console import Console
 from rich.table import Table
 from fuzzywuzzy import process, fuzz, utils
 
+
 class Game:
     def __init__(self, title: str, platform: str, dev: str, publisher: str, summary: str, url: str):
         self.title = title
@@ -23,9 +24,7 @@ def manual_game_create(choice):
     plat = game_data.find_platform(title)
     pub = game_data.find_publisher(title)
     url = game_data.find_url(title)
-
     new_game = Game(title, plat, dev, pub, summary, url)
-
     show_single_game(new_game)
     decide = input(f"\nDo you want to add {title} to your collection? (yes/no): ")
 
@@ -42,7 +41,10 @@ def manual_game_create(choice):
                 print(f"{title} has been added to your collection!")
             elif dupe == "no":
                 print(f"{title} was not added to your collection.")
-    else: 
+    elif decide == "no": 
+            print(f"{title} was not added to your collection.")
+
+    else:    
         print("That is not a valid option.")   
         navigation.main_menu()
  
@@ -118,24 +120,19 @@ def search_collection(choice):
         if result[1] > 80:
             sql = "SELECT * FROM collection where title=?"
             cursor.execute(sql, [result[0]])
-            result_db=cursor.fetchall() # returns tuples
+            result_db=cursor.fetchall()
 
             for tup in result_db:
                 table.add_row(*(str(item) for item in tup))
-
 
     console = Console()
     console.print(table)
     
 
 def show_single_game(game_info):
-
     table = navigation.game_table()
-    game_details = [game_info.title, game_info.platform, game_info.dev, game_info.pub, game_info.summary, game_info.url]
-    
-    # populate table          
+    game_details = [game_info.title, game_info.platform, game_info.dev, game_info.pub, game_info.summary, game_info.url]         
     table.add_row(*game_details)
-    
     console = Console()
     console.print(table)
     
