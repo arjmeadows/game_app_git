@@ -47,14 +47,14 @@ def csv_import(file):
                         collection.add_game(new_game)    
                         continue                
                     elif dupe == "no":
-                        print(f"{row['Title']} not added to your collection")
+                        print(f"{row['Title']} was not added to your collection.")
                         continue
                 else:
                     new_game = collection.Game(row["Title"], row["Platform"], row["Developer"], row["Publisher"], row["Summary"], row["URL"])
                     collection.add_game(new_game)
                     continue
 
-                print("\nThis is your updated collection:")
-                collection.list_games()           
+            print("\nThis is your updated collection:")
+            collection.list_games()           
     else:
         navigation.main_menu()    

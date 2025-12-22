@@ -46,7 +46,6 @@ def manual_game_create(choice):
 
 def manual_game_remove(choice):
     remove_choice = choice[7:]
-    # think this has broken remove
     table = navigation.game_table()
     
     try:
@@ -58,9 +57,9 @@ def manual_game_remove(choice):
     console = Console()
     console.print(table)
     print()
-    input(f"Would you like to remove {remove_choice}? ")
+    input(f"Would you like to remove all instances of {remove_choice} from your collection?: ")
     remove_game(remove_choice)
-    print(f"{remove_choice} has been removed from the collection!")
+    print(f"{remove_choice} has been removed from your collection!")
 
 
 def list_games():
