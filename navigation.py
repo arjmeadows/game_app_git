@@ -23,7 +23,7 @@ def print_logo():
     \|_______|\|__|\|__|\|__|     \|__|\|_______|        \|_______|\|_______|\|_______|\|_______|\|_______|\|_______|   \|__|  \|__|\|__|
                                                                                                                                                                                                                                  
     Store, review, and export your game collection with this retro Python program!                                                                                         
-    This program was written by Adam Meadows (adamrjmeadows.com)
+    This program was written by Adam Meadows (adamrjmeadows.com).
     """
 
     print(logo)
