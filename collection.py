@@ -30,15 +30,18 @@ def manual_game_create(choice):
     decide = input(f"\nDo you want to add {title} to your collection? (yes/no): ")
 
     if decide == "yes":
-        if database.db_read_one(title) is None:
+        if database.db_read_one(title) == None:
             add_game(new_game)
             print()
             print(f"{title} has been added to your collection!")
             navigation.main_menu()
         else:
-            print(f"{title} is already in your collection!")    
-    elif decide == "no":
-        navigation.main_menu()
+            dupe = input(f"{title} is already in your collection. Do you want to add a duplicate? (yes/no): ")
+            if dupe == "yes": 
+                add_game(new_game)    
+                print(f"{title} has been added to your collection!")
+            elif dupe == "no":
+                print(f"{title} was not added to your collection.")
     else: 
         print("That is not a valid option.")   
         navigation.main_menu()
