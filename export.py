@@ -23,38 +23,36 @@ def csv_export(file_name):
 
 
 def csv_import(file):
-    file_name = file[7:] 
-    with open(file_name, "r") as import_file:
-        csvreader = csv.DictReader(import_file, delimiter=',')
-        table = navigation.game_table()
-
-        for row in csvreader:
-            table.add_row(row["Title"], row["Platform"], row["Developer"], row["Publisher"], row["Summary"], row["URL"]) 
-
-    console = Console()
-    print("These are the games you want to import to your collection: ")
-    console.print(table)
-    decision = input("Do you want to add the game(s) above to your collection? (yes/no): ")
-
-    if decision == "yes":
+    try:
+        file_name = file[7:] 
         with open(file_name, "r") as import_file:
             csvreader = csv.DictReader(import_file, delimiter=',')
-            for row in csvreader:
-                if database.db_read_one(row["Title"]) is not None:
-                    new_game = collection.Game(row["Title"], row["Platform"], row["Developer"], row["Publisher"], row["Summary"], row["URL"])
-                    dupe = input(f"{row["Title"]} is already in your collection. Do you want to add a duplicate? (yes/no): ")
-                    if dupe == "yes": 
-                        collection.add_game(new_game)    
-                        continue                
-                    elif dupe == "no":
-                        print(f"{row['Title']} was not added to your collection.")
-                        continue
-                else:
-                    new_game = collection.Game(row["Title"], row["Platform"], row["Developer"], row["Publisher"], row["Summary"], row["URL"])
-                    collection.add_game(new_game)
-                    continue
+            table = navigation.game_table()
 
-            # print("\nThis is your updated collection:")
-            # collection.list_games()           
-    else:
-        navigation.main_menu()    
+            for row in csvreader:
+                table.add_row(row["Title"], row["Platform"], row["Developer"], row["Publisher"], row["Summary"], row["URL"]) 
+
+        console = Console()
+        print("These are the games you want to import to your collection: ")
+        console.print(table)
+        decision = input("Do you want to add the game(s) above to your collection? (yes/no): ")
+
+        if decision == "yes":
+            with open(file_name, "r") as import_file:
+                csvreader = csv.DictReader(import_file, delimiter=',')
+                for row in csvreader:
+                    if database.db_read_one(row["Title"]) is not None:
+                        new_game = collection.Game(row["Title"], row["Platform"], row["Developer"], row["Publisher"], row["Summary"], row["URL"])
+                        dupe = input(f"{row["Title"]} is already in your collection. Do you want to add a duplicate? (yes/no): ")
+                        if dupe == "yes": 
+                            collection.add_game(new_game)                    
+                        elif dupe == "no":
+                            print(f"{row['Title']} was not added to your collection.")
+                     
+                    else:
+                        new_game = collection.Game(row["Title"], row["Platform"], row["Developer"], row["Publisher"], row["Summary"], row["URL"])
+                        collection.add_game(new_game)          
+        else:
+            navigation.main_menu()    
+    except:
+        print("File not found.")       
