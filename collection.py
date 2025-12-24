@@ -51,33 +51,45 @@ def manual_game_create(choice):
 
 def user_add_game(choice: str):
     title = choice[4:]
+    summary = ""
+    dev     = ""
+    plat    = ""
+    pub     = ""
+    url     = ""
 
-    if database.db_read_one(title) != None:
+    if database.db_read_one(title) == None:
         summary = input(f"Enter a summary for {title}: ")
         dev     = input(f"Enter developer for {title}: ")
         plat    = input(f"Enter platform for {title}: ")
         pub     = input(f"Enter publisher for {title}: ")
         url     = input(f"Enter URL for {title}: ")
         new_game = Game(title, plat, dev, pub, summary, url)
-        add_game(new_game)
-        print()
-        print(f"{title} has been added to your collection!")
-        navigation.main_menu()
-    
-    else:
-        dupe = input(f"{title} is already in your collection. Do you want to add a duplicate? (yes/no): ")
-        if dupe == "yes": 
-            add_game(new_game)    
+        show_single_game(new_game)
+        decide = input(f"Do you want to add {title} to your collection? (yes/no): ")
+        
+        if decide == "yes":
+            new_game = Game(title, plat, dev, pub, summary, url)
+            add_game(new_game)
+            print()
             print(f"{title} has been added to your collection!")
-        elif dupe == "no":
+            navigation.main_menu()
+        elif decide == "no":
             print(f"{title} was not added to your collection.")
 
-
-    new_game = Game(title, plat, dev, pub, summary, url)
-    show_single_game(new_game)
-    decide = input(f"\nDo you want to add {title} to your collection? (yes/no): ")
-
-
+    elif database.db_read_one(title) != None:
+        dupe = input(f"{title} is already in your collection. Do you want to add a duplicate? (yes/no): ")
+        if dupe == "yes": 
+            summary = input(f"Enter a summary for {title}: ")
+            dev = input(f"Enter developer for {title}: ")
+            plat = input(f"Enter platform for {title}: ")
+            pub = input(f"Enter publisher for {title}: ")
+            url = input(f"Enter URL for {title}: ")
+            new_game = Game(title, plat, dev, pub, summary, url)
+            add_game(new_game)    
+            print(f"{title} has been added to your collection!")
+            show_single_game(new_game)
+        elif dupe == "no":
+            print(f"{title} was not added to your collection.")
 
 
 def manual_game_remove(choice):
