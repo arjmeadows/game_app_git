@@ -71,9 +71,13 @@ def list_games():
     connection = sqlite3.connect('game_collection.db')
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM collection")
-    result=cursor.fetchall()
+    result = cursor.fetchall()
 
-    table = navigation.game_table()
+    if result == []:
+        print("There are no games in your collection.")
+        navigation.main_menu()
+    elif result != None:    
+        table = navigation.game_table()
 
     for row in result:
         table.add_row(*(str(item) for item in row))
@@ -115,6 +119,12 @@ def search_collection(choice):
     database_read = [(row['title']) for row in result]    
     search_result = (process.extract(query, database_read, scorer=fuzz.token_set_ratio, processor=utils.full_process, limit=3))
     table = navigation.game_table()
+
+    if result == []:
+        print("There are no games in your collection.")
+        navigation.main_menu()
+    elif result != None:    
+        table = navigation.game_table()
    
     for result in search_result:
         if result[1] > 80:
