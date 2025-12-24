@@ -1,0 +1,75 @@
+🕹️ GAME COLLECTR
+
+A sleek, terminal-based library manager for your physical and digital game collection.
+
+GAME COLLECTR allows you to catalog your games, pull metadata directly from the Twitch/IGDB API, and manage your data via a local SQLite database. It's designed for power users who prefer the speed of a command line over a bulky GUI.
+
+Upcoming improvements:
+* Reducing code reuse
+* Ability export collection to Google Sheets
+* Improved error messages
+* General usability polish 
+
+✨ Features
+
+Twitch API Integration: Automatically fetch developer, publisher, and platform info from the Internet Game Database (IGDB)
+
+Secure Credential Handling: Uses getpass to mask API tokens during setup.
+
+Search: Search by title to find existing records or add new ones.
+
+Store and import: Supports both CSV imports and SQLite database persistence.
+
+Portable Executable: Compiled as a standalone terminal app for macOS/Windows.
+
+🚀 Quick Start
+
+Prerequisites
+* Python 3.10+ (if running from source)
+* A Twitch Developer Client ID and Secret
+
+Installation
+Clone the repository:
+Bash
+git clone https://github.com/yourusername/game-collectr.git
+cd game-collectr
+
+Install dependencies:
+Bash
+pip install -r requirements.txt
+
+
+Run the app:
+Bash
+python main.py
+
+
+🛠️ Configuration
+
+On the first launch, the app will prompt you for your Twitch credentials.
+
+Client ID: Your public Twitch Developer ID.
+
+Token: Your secret Bearer token (input is hidden for security).
+
+These are stored in a config.py module to maintain state across the application lifecycle.
+
+
+🏗️ Project Structure
+
+main.py: The entry point and terminal menu logic.
+
+game_data.py: Handles API requests and data parsing.
+
+database.py: Manages SQLite connections and CRUD operations.
+
+config.py: Global state management for user sessions.
+
+📦 Compiling to Executable
+
+To create your own standalone version of GAME COLLECTR:
+
+Bash
+
+pyinstaller --onefile --name "GAME COLLECTR" main.py
+The resulting file will be located in the dist/ folder.
