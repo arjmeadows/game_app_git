@@ -5,6 +5,7 @@ import sys, os
 import collection
 import export
 import config
+import getpass
 
 
 config.TWITCH_CLIENT_ID = None
@@ -38,16 +39,16 @@ def print_logo():
 def get_user_credentials():
 
     if config.TWITCH_CLIENT_ID == None and config.TWITCH_TOKEN == None:
-        print("This program retrieves information from the Internet Game Database. This requires a Client Twitch ID and Client Token.")
-        print("If you don't want to use this functionality, you can read from the example database included.")
-        print()
-        use_Twitch = input("Do you want to provide Twitch credentials? (yes/no): ")
+        print("This program retrieves information from the Internet Game Database (IGDB). This requires a Client Twitch ID and token.\n")
+        print("If you want to use GAME COLLECTR without retrieving information from IGDB, you can use the example database included or add games manually.\n")
+        print("For instructions on how to obtain a Twitch Client ID and Token, refer to https://api-docs.igdb.com/#getting-started\n")
+        use_Twitch = input("Do you want to provide Twitch credentials? This won't be stored in the GAME COLLECTR database (yes/no): ")
 
         if use_Twitch == "yes":
 
-            config.TWITCH_CLIENT_ID = input("Twitch Client ID: ")
-            config.TWITCH_TOKEN = input("Twitch Token: ")
-
+            config.TWITCH_CLIENT_ID = getpass.getpass("Enter Twitch Client ID (hidden): ")
+            config.TWITCH_TOKEN = getpass.getpass("Enter Twitch Token (hidden): ")
+            
         else:
             main_menu()
 
@@ -57,6 +58,7 @@ def main_menu():
     console = Console()
 
     menu_content = (
+        "[bold cyan]get[/bold cyan] [italic white]<title>[/italic white] | "
         "[bold cyan]add[/bold cyan] [italic white]<title>[/italic white] | "
         "[bold red]remove[/bold red] [italic white]<title>[/italic white] | "
         "[bold green]list[/bold green] | "
@@ -69,14 +71,18 @@ def main_menu():
         "[bold cyan]add[/bold cyan] [white]Halo 2[/white]  •  "
         "[bold purple]export[/bold purple] [white]games[/white]  •  "
         "[bold yellow]import[/bold yellow] [white]games.csv[/white]"
+        "[bold yellow]enter Twitch credentials[/bold yellow] [white]twitch[/white]"
     )
 
     console.print(Panel(menu_content, title="GAME COLLECTR MENU", expand=False))
     choice = console.input("[bold green]>>> [/bold green]").strip()
     print()
 
-    if "add " in choice:
+    if "get " in choice:
         collection.manual_game_create(choice)
+        main_menu()
+    if "add " in choice:
+        collection.user_add_game(choice)
         main_menu()
     elif "remove " in choice:
         collection.manual_game_remove(choice)
@@ -93,6 +99,9 @@ def main_menu():
     elif "import " in choice:
         export.csv_import(choice)
         main_menu()
+    elif choice == "twitch":
+        get_user_credentials()
+        main_menu()    
     elif choice == "exit":
         print("Thank you for using GAME COLLECTR!")
         sys.exit
