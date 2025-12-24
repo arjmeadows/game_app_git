@@ -3,12 +3,11 @@ import json
 from dotenv import load_dotenv
 from igdb.wrapper import IGDBWrapper
 import os
+import config
 
 def igdb(game_name):
-    load_dotenv()
-    TWITCH_CLIENT_ID = os.getenv('TWITCH_CLIENT_ID')
-    TWITCH_TOKEN = os.getenv('TWITCH_TOKEN')
-    wrapper = IGDBWrapper(TWITCH_CLIENT_ID, TWITCH_TOKEN)
+        
+    wrapper = IGDBWrapper(config.TWITCH_CLIENT_ID, config.TWITCH_TOKEN)
     query = f'fields name, summary, url, platforms.name, involved_companies.company.name, involved_companies.publisher, involved_companies.developer; where name = "{game_name}";'
 
     try:

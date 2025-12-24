@@ -1,0 +1,2 @@
+TWITCH_CLIENT_ID = None
+TWITCH_TOKEN = None

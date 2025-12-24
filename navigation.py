@@ -4,6 +4,12 @@ from rich.table import Table
 import sys, os
 import collection
 import export
+import config
+
+
+config.TWITCH_CLIENT_ID = None
+config.TWITCH_TOKEN = None
+
 
 def setup_app():
     # Set Terminal Title
@@ -27,6 +33,23 @@ def print_logo():
     """
 
     print(logo)
+
+
+def get_user_credentials():
+
+    if config.TWITCH_CLIENT_ID == None and config.TWITCH_TOKEN == None:
+        print("This program retrieves information from the Internet Game Database. This requires a Client Twitch ID and Client Token.")
+        print("If you don't want to use this functionality, you can read from the example database included.")
+        print()
+        use_Twitch = input("Do you want to provide Twitch credentials? (yes/no): ")
+
+        if use_Twitch == "yes":
+
+            config.TWITCH_CLIENT_ID = input("Twitch Client ID: ")
+            config.TWITCH_TOKEN = input("Twitch Token: ")
+
+        else:
+            main_menu()
 
 
 def main_menu():
