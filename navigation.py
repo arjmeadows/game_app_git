@@ -8,10 +8,6 @@ import config
 import getpass
 
 
-config.TWITCH_CLIENT_ID = None
-config.TWITCH_TOKEN = None
-
-
 def setup_app():
     # Set Terminal Title
     sys.stdout.write("\x1b]2;Game Collector Pro v1.0\x07")
@@ -29,7 +25,8 @@ def print_logo():
    \ \_______\ \__\ \__\ \__\    \ \__\ \_______\       \ \_______\ \_______\ \_______\ \_______\ \_______\ \_______\  \ \__\ \ \__\\ _\ 
     \|_______|\|__|\|__|\|__|     \|__|\|_______|        \|_______|\|_______|\|_______|\|_______|\|_______|\|_______|   \|__|  \|__|\|__|
                                                                                                                                                                                                                                  
-    Store, review, and export your game collection with this retro Python program!                                                                                         
+    Store, review, and export your game collection with this retro Python program!                       
+
     This program was written by Adam Meadows (adamrjmeadows.com).
     """
 
@@ -71,7 +68,6 @@ def main_menu():
         "[bold cyan]add[/bold cyan] [white]Halo 2[/white]  •  "
         "[bold purple]export[/bold purple] [white]games[/white]  •  "
         "[bold yellow]import[/bold yellow] [white]games.csv[/white]"
-        "[bold yellow]enter Twitch credentials[/bold yellow] [white]twitch[/white]"
     )
 
     console.print(Panel(menu_content, title="GAME COLLECTR MENU", expand=False))
@@ -79,6 +75,7 @@ def main_menu():
     print()
 
     if "get " in choice:
+        get_user_credentials()
         collection.manual_game_create(choice)
         main_menu()
     if "add " in choice:

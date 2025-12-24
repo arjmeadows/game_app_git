@@ -9,5 +9,4 @@ database.create_db()
 
 # launch main menu
 navigation.print_logo()
-navigation.get_user_credentials()
 navigation.main_menu()

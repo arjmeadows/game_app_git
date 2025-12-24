@@ -105,7 +105,7 @@ def manual_game_remove(choice):
     console = Console()
     console.print(table)
     print()
-    input(f"Would you like to remove all instances of {remove_choice} from your collection?: ")
+    input(f"Would you like to remove all instances of {remove_choice} from your collection? (yes/no): ")
     remove_game(remove_choice)
     print(f"{remove_choice} has been removed from your collection!")
 
