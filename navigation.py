@@ -41,7 +41,7 @@ def get_user_credentials():
     if config.TWITCH_CLIENT_ID == None and config.TWITCH_TOKEN == None:
         print("This program retrieves information from the Internet Game Database (IGDB). This requires a Client Twitch ID and token.\n")
         print("If you want to use GAME COLLECTR without retrieving information from IGDB, you can use the example database included or add games manually.\n")
-        print("For instructions on how to obtain a Twitch Client ID and Token, refer to https://api-docs.igdb.com/#getting-started\n")
+        print("For instructions on how to obtain a Twitch Client ID and token, refer to https://api-docs.igdb.com/#getting-started\n")
         use_Twitch = input("Do you want to provide Twitch credentials? This won't be stored in the GAME COLLECTR database (yes/no): ")
 
         if use_Twitch == "yes":

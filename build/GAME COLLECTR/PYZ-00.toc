@@ -369,6 +369,7 @@
   ('concurrent.interpreters._queues',
    '/opt/homebrew/Cellar/python@3.14/3.14.2/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/interpreters/_queues.py',
    'PYMODULE'),
+  ('config', '/Users/adammeadows/game_app_git/config.py', 'PYMODULE'),
   ('configparser',
    '/opt/homebrew/Cellar/python@3.14/3.14.2/Frameworks/Python.framework/Versions/3.14/lib/python3.14/configparser.py',
    'PYMODULE'),
